@@ -1,4 +1,4 @@
-%Intro to Turnip
+% Intro to Turnip
 
 
 ## What is Turnip?
@@ -12,3 +12,5 @@
 ### Migrate
 
 ## How do I install it?
+### Verifying drush
+### Verifying behat
