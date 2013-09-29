@@ -11,7 +11,7 @@ The main components of Turnip are:
 *  Profiler
 *  Features
 *  Behat
-*  Migrate
+*  Deploy
 
 Individually they represent codebase, installation, configuration management, testing and content staging tools.  Together they allow devs to build complex websites that can be deployed and built on nearly any platform with little adaptation.
 
@@ -43,7 +43,19 @@ To build the site, simply run `drush make PATH/TO/MAKEFILE DRUPAL_DIRECTORY`.  I
 
 ### Profiler
 
-Profiler is a neat library that extends the functionality of the install profile.  Gone are the 
+Profiler is a neat library that extends the functionality of the install profile.  Gone are the days where custom install profiles meant long and largely unreadable database updates.  Followed by obscure Drupal function calls and more database queries.
+With profiler, creating basic placeholder content is done in a human readable format.  Even custom fields can be included given the proper set of parameters.
+It all starts out with the install profile's .info file.  Adding a placeholder node is as simple as this.
+```
+nodes[about][type] = page
+nodes[about][title] = About
+nodes[about][body][und][0][value] = PLACEHOLDER
+nodes[about][body][und][0][format] = full_html
+nodes[about][uid] = 1
+nodes[about][language] = und
+
+```
+The above example isn't exactly easy, but it is quite a bit more straightforward than creating a node object and calling `node_save()`.
 
 ### Features
 ### Behat
