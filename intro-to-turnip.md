@@ -1,5 +1,5 @@
 ## What is Turnip?
-Turnip is a Drupal starter kit created by the OpenSourcery as starting point on scratch built Drupal installs.  Turnip provides a basic setup that puts site builders several steps ahead of the vanilla Drupal install.
+[Turnip](https://github.com/opensourcery/turnip) is a Drupal starter kit created by the OpenSourcery as starting point on scratch built Drupal installs.  Turnip provides a basic setup that puts site builders several steps ahead of the vanilla Drupal install.
 
 Furthermore,  Turnip adds a host of community contributed modules that make up the core sitebuilding & development functionality at the OpenSourcery. This post is the first of a series highlighting the tools & methodologies that make up Turnip.
 
@@ -46,6 +46,7 @@ To build the site, simply run `drush make PATH/TO/MAKEFILE DRUPAL_DIRECTORY`.  I
 Profiler is a neat library that extends the functionality of the install profile.  Gone are the days where custom install profiles meant long and largely unreadable database updates.  Followed by obscure Drupal function calls and more database queries.
 With profiler, creating basic placeholder content is done in a human readable format.  Even custom fields can be included given the proper set of parameters.
 It all starts out with the install profile's .info file.  Adding a placeholder node is as simple as this.
+
 ```
 nodes[about][type] = page
 nodes[about][title] = About
@@ -55,12 +56,31 @@ nodes[about][uid] = 1
 nodes[about][language] = und
 
 ```
+
 The above example isn't exactly easy, but it is quite a bit more straightforward than creating a node object and calling `node_save()`.
 
 ### Features
+Features is a way to assemble and export site components into a custom module.  Features can be exported via the interface in the site itself.  The feature can then be tracked in source control, making transferring settings from dev to test site and then onto deployment more straightforward.
+#### Module development, point & click style
+Features shine at taking things that are built in the UI like permissions or views. The components are then exported to a custom includes file specific to the components in the feature. Features can be managed via drush using commandes like `features-update` or `features-revert` to move features out of the database into code or the reverse.
 ### Behat
-### Deploy
+Behat is a framework, independent of Drupal that tests whether or not software behaves in a given way. Since the software is being tested on a more interface driven level, the tests can be less specific to verifying the state of a variable.  The upshot of Behat it is that the tests are designed to be human readable and writable.
 
-## How do I install it?
+#### Testing on the client side
+
+Since tests can be almost directly ported from user stories, the responsibility of writing the tests can be reassigned from the developer or the QA lead to a Project Manager or possibly even the client.  Tests can be tagged to differentiate levels of depth, or even browser versions.
+
+### Deploy
+Deploy is a project that uses the Universally Unique Identifier (UUID) to export staged content, much in the same way that Features indentifies and exports site architecture, deploy exports and manages content.
+
+NEW BLOG POST
+
+## How do I install Turnip?
+Definitely refer to the Turnip README [available here.](https://github.com/opensourcery/turnip) for extended directions on the step-by-step.
+
 ### Verifying drush
-### Verifying behat
+Since building the drupal site proper depends on drush, it's vital to make sure that drush is installed.  To verify that, simply type `drush --version` into your terminal.  If it returns version 5 or above, you're good to go.
+
+Once you've verified drush, we're going to skip to the action packed step (# 3), where we actually start building the site.  Run `bin/make-install-profile` with the arguments directed in the README.  This script will only need to be run once as the turnip default profile name will be set using this name.  The git tip to use `git add -A` should be a must-use.  Completing this step means that the profile is now stubbed out and ready to run install.
+
+Now that the profile build has been started, this is when things get interesting.  Run `bin/install` to get the ball rolling and install the make file,  building the actual drupal site.  It will start scrolling down, showing all the modules being downloaded into the profile. Once the build finishes, the drupal install is located in `/drupal`. The install profile is located in the `/profiles` directory which in turn has a `/modules` directory where all the modules are installed.
